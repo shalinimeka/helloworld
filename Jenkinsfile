@@ -26,6 +26,13 @@ pipeline {
         echo '<------------- Unit Testing stopped  --------------->'
       }
     }
-    
+    stage("Scan") {
+          steps {
+              withSonarQubeEnv(installationName: 'sonarqube_token') {
+                 sh 'mvn clean verify sonar:sonar'
+              }
+          }
+      }
+
 }
 }
