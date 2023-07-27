@@ -26,10 +26,10 @@ pipeline {
         echo '<------------- Unit Testing stopped  --------------->'
       }
     }
-    stage("Scan") {
+    stage("Deploy") {
           steps {
-              withSonarQubeEnv(installationName: 'sonarqube_token') {
-                 sh 'mvn clean verify sonar:sonar'
+              script {
+                 deploy adapters: [tomcat9(credentialsId: 'tomcat_deployer', path: '', url: 'http://local:8081')], contextPath: '/pipeline', onFailure: false, war: 'webapp/target/*.war' 
               }
           }
       }
