@@ -8,28 +8,28 @@ pipeline {
     }
     stage('Pull Changes') {
       steps {
-        sh 'git pull origin main'
+        bat 'git pull origin main'
       }
     }
     stage('Build') {
       steps {
         echo '<--------------- Building --------------->'
-        sh 'printenv'
-        sh 'mvn clean install'
+        bat 'printenv'
+        bat 'mvn clean install'
         echo '<------------- Build completed --------------->'
       }
     }
     stage('Unit Test') {
       steps {
         echo '<--------------- Unit Testing started  --------------->'
-        sh 'mvn surefire-report:report'
+        bat 'mvn surefire-report:report'
         echo '<------------- Unit Testing stopped  --------------->'
       }
     }
     stage("Scan") {
           steps {
               withSonarQubeEnv(installationName: 'sonarqube_token') {
-                 sh 'mvn clean verify sonar:sonar'
+                 bat 'mvn clean verify sonar:sonar'
               }
           }
       }
