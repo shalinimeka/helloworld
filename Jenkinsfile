@@ -15,7 +15,7 @@ pipeline {
       steps {
         echo '<--------------- Building --------------->'
         sh 'printenv'
-        sh 'mvn -B -ntp -Dmaven.test.failure.ignore verify'
+        sh 'mvn clean install'
         echo '<------------- Build completed --------------->'
       }
     }
